@@ -45,12 +45,17 @@ nav .nav-inner {
   height: 60px;
 }
 nav .logo {
-  font-weight: 700;
+  font-weight: 800;
   font-size: 1.1rem;
+  letter-spacing: 6px;
   background: var(--gradient-1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  padding: 8px 20px;
+  border: 1.5px solid rgba(56,189,248,0.25);
+  border-radius: 10px;
+  position: relative;
 }
 nav .nav-links {
   display: flex;
