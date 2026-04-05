@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thiago Ramos Camargo | Infraestrutura Linux & DevOps</title>
+<style>
+:root {
+  --bg-primary: #0a0e17;
+  --bg-secondary: #111827;
+  --bg-card: #1a2332;
+  --accent: #38bdf8;
+  --accent-hover: #7dd3fc;
+  --accent-dim: rgba(56, 189, 248, 0.1);
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --border: rgba(255,255,255,0.06);
+  --gradient-1: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+  --gradient-2: linear-gradient(135deg, #0a0e17 0%, #1e293b 100%);
+  --radius: 12px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.3);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ---- NAV ---- */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(10, 14, 23, 0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+}
+
+nav .nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+
+nav .logo {
+  font-weight: 700;
+  font-size: 1.1rem;
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+nav .nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+
+nav .nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+nav .nav-links a:hover { color: var(--accent); }
+
+/* ---- REVEAL ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- HERO ---- */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 24px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 600px 400px at 30% 20%, rgba(56,189,248,0.08) 0%, transparent 100%),
+    radial-gradient(ellipse 500px 350px at 70% 70%, rgba(129,140,248,0.06) 0%, transparent 100%);
+  animation: heroPulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes heroPulse {
+  0%   { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* Grid dots */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 60px 0 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 100%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: var(--accent-dim);
+  border: 1px solid rgba(56,189,248,0.2);
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 6px 18px;
+  border-radius: 50px;
+  margin-bottom: 24px;
+  letter-spacing: 0.5px;
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.hero h1 .gradient {
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 560px;
+  margin: 0 auto 36px;
+}
+
+.hero-cta {
+  display: inline-flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background: var(--gradient-1);
+  color: #0a0e17;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(56,189,248,0.3);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.btn-outline:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* ---- SECTIONS ---- */
+section {
+  padding: 80px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-label {
+  display: inline-block;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+  letter-spacing: -0.3px;
+}
+
+.section-desc {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+/* ---- ABOUT ---- */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.about-text p {
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  font-size: 0.95rem;
+}
+
+.about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.stat-card:hover {
+  border-color: rgba(56,189,248,0.3);
+  transform: translateY(-4px);
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 800;
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ---- SKILLS ---- */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.skill-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: all 0.3s;
+}
+.skill-card:hover {
+  border-color: rgba(56,189,248,0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(56,189,248,0.08);
+}
+
+.skill-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.skill-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--accent-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.1rem;
+}
+
+.skill-card h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.skill-tag {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  transition: all 0.3s;
+}
+.skill-tag:hover {
+  background: var(--accent-dim);
+  border-color: rgba(56,189,248,0.2);
+  color: var(--accent);
+}
+
+/* ---- EXPERIENCE ---- */
+.timeline {
+  position: relative;
+  padding-left: 32px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent), var(--accent) 0%, rgba(56,189,248,0.1));
+  border-radius: 2px;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 36px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  transition: all 0.3s;
+}
+.timeline-item:hover {
+  border-color: rgba(56,189,248,0.25);
+  box-shadow: 0 4px 20px rgba(56,189,248,0.06);
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -29px;
+  top: 30px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(56,189,248,0.4);
+}
+
+.timeline-item:first-child::before {
+  box-shadow: 0 0 0 4px var(--bg-primary), 0 0 12px rgba(56,189,248,0.4);
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.timeline-role {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.timeline-company {
+  color: var(--accent);
+  font-weight: 500;
+  font-size: 0.92rem;
+}
+
+.timeline-period {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.timeline-desc {
+  list-style: none;
+  padding: 0;
+}
+
+.timeline-desc li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.timeline-desc li::before {
+  content: '\2014';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+/* ---- FEATURED PROJECT ---- */
+.project-card {
+  background: var(--gradient-2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 36px;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56,189,248,0.08) 0%, transparent 70%);
+}
+
+.project-label {
+  display: inline-block;
+  background: var(--accent-dim);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.project-card h3 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.project-card p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  max-width: 680px;
+  position: relative;
+}
+
+.project-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+  position: relative;
+}
+
+.stack-tag {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 5px 14px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* ---- CERTS ---- */
+.certs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 12px;
+}
+
+.cert-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all 0.3s;
+}
+.cert-card:hover {
+  border-color: rgba(56,189,248,0.2);
+  transform: translateY(-2px);
+}
+
+.cert-icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.cert-info {
+  min-width: 0;
+}
+
+.cert-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cert-issuer {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* ---- LANGUAGES ---- */
+.repo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
+}
+
+.repo-card {
+  display: block;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.repo-card:hover {
+  border-color: rgba(56,189,248,0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(56,189,248,0.08);
+}
+
+.repo-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 0 0 0 80px;
+  background: var(--accent-dim);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.repo-card:hover::before { opacity: 1; }
+
+.repo-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.repo-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--accent-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.2rem;
+}
+
+.repo-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.repo-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.repo-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.lang-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+}
+.lang-dot.css { background: #563d7c; }
+.lang-dot.html { background: #e34c26; }
+.lang-dot.javascript { background: #f7df1e; }
+
+.repo-lang {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.repo-link {
+  font-size: 0.78rem;
+  color: var(--accent);
+  font-weight: 500;
+}
+.lang-grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.lang-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 28px;
+  text-align: center;
+  transition: all 0.3s;
+  min-width: 140px;
+}
+.lang-card:hover {
+  border-color: rgba(56,189,248,0.2);
+  transform: translateY(-3px);
+}
+
+.lang-level {
+  font-size: 1.8rem;
+  font-weight: 800;
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.lang-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.lang-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ---- EDUCATION ---- */
+.edu-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  max-width: 600px;
+  transition: all 0.3s;
+}
+.edu-card:hover {
+  border-color: rgba(56,189,248,0.2);
+}
+
+.edu-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: var(--accent-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.edu-degree {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.edu-school {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.edu-year {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ---- FOOTER ---- */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.footer-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.88rem;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover { color: var(--accent); }
+
+.footer-copy {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+/* ---- MOBILE ---- */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.hamburger span {
+  width: 22px;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: rgba(10,14,23,0.98);
+    backdrop-filter: blur(16px);
+    flex-direction: column;
+    padding: 20px 24px;
+    gap: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-links.open { display: flex; }
+
+  .about-grid { grid-template-columns: 1fr; }
+  .about-stats { grid-template-columns: 1fr 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .certs-grid { grid-template-columns: 1fr; }
+  .timeline-header { flex-direction: column; }
+}
+
+@media (max-width: 480px) {
+  .about-stats { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 1.8rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">TRC</div>
+    <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#habilidades">Habilidades</a></li>
+      <li><a href="#experiencia">Experiencia</a></li>
+      <li><a href="#projeto">Projetos</a></li>
+      <li><a href="#certificacoes">Certificacoes</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-badge">Banco do Nordeste</span>
+    <h1>Ola, sou <span class="gradient">Thiago Camargo</span></h1>
+    <p>Engenheiro da Computacao especializado em infraestrutura Linux, automacao de processos e DevOps. Mais de 8 anos garantindo estabilidade, performance e seguranca em ambientes criticos de grande porte.</p>
+    <div class="hero-cta">
+      <a href="#contato" class="btn btn-primary">Entre em Contato</a>
+      <a href="#projeto" class="btn btn-outline">Ver Projetos</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="sobre">
+  <div class="reveal">
+    <span class="section-label">Sobre</span>
+    <div class="section-title">Administrador de Sistemas & DevOps</div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Engenheiro da Computacao com mais de 8 anos de experiencia em administracao de sistemas Linux, automacao de processos e garantia de estabilidade, performance e operacao continua.</p>
+        <p>Atuei em ambientes corporativos criticos de grande porte, incluindo segmento bancario regulado, com autonomia na resolucao de incidentes e melhoria continua de processos. Domínio em Shell Script, Bash e Python para automacao, com vivencia em servidores aplicacionais Java (Tomcat e Glassfish), Docker, pipelines CI/CD e ferramentas de monitoramento.</p>
+        <p>Perfil proativo, analitico e com forte capacidade de trabalho em equipe e comunicacao assincrona.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-number">8+</div>
+          <div class="stat-label">Anos de Experiencia</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">30%</div>
+          <div class="stat-label">Reducao em Tempo de Resolucao</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">50%</div>
+          <div class="stat-label">Ganho de Eficiencia</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">6+</div>
+          <div class="stat-label">Certificacoes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="habilidades">
+  <div class="reveal">
+    <span class="section-label">Habilidades</span>
+    <div class="section-title">Stack Tecnologica</div>
+    <div class="section-desc">Tecnologias e ferramentas que utilizo no dia a dia para construir e manter infraestruturas robustas.</div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon">&#128187;</div>
+          <h3>Sistemas Operacionais</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Linux</span>
+          <span class="skill-tag">Ubuntu</span>
+          <span class="skill-tag">Red Hat</span>
+          <span class="skill-tag">CentOS</span>
+          <span class="skill-tag">Windows Server</span>
+          <span class="skill-tag">Hardening</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon">&#9881;</div>
+          <h3>Automacao & Scripting</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Ansible</span>
+          <span class="skill-tag">Shell Script</span>
+          <span class="skill-tag">Bash</span>
+          <span class="skill-tag">Python</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon">&#128230;</div>
+          <h3>Containers & CI/CD</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Docker</span>
+          <span class="skill-tag">Kubernetes</span>
+          <span class="skill-tag">GitLab CI</span>
+          <span class="skill-tag">GitHub Actions</span>
+          <span class="skill-tag">ArgoCD</span>
+          <span class="skill-tag">Jenkins</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon">&#9729;</div>
+          <h3>Infrastructure as Code</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Terraform</span>
+          <span class="skill-tag">Ansible</span>
+          <span class="skill-tag">CloudFormation</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon">&#9729;</div>
+          <h3>Cloud</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">AWS</span>
+          <span class="skill-tag">Microsoft Azure</span>
+          <span class="skill-tag">GCP</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon">&#128200;</div>
+          <h3>Monitoramento</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Grafana</span>
+          <span class="skill-tag">Zabbix</span>
+          <span class="skill-tag">CloudWatch</span>
+          <span class="skill-tag">Elasticsearch</span>
+          <span class="skill-tag">Kibana</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon">&#128394;</div>
+          <h3>Redes & Seguranca</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">TCP/IP</span>
+          <span class="skill-tag">DNS</span>
+          <span class="skill-tag">DHCP</span>
+          <span class="skill-tag">VPN</span>
+          <span class="skill-tag">Firewall</span>
+          <span class="skill-tag">VLAN</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon">&#128736;</div>
+          <h3>Servidores Aplicacionais</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Apache Tomcat</span>
+          <span class="skill-tag">Glassfish</span>
+          <span class="skill-tag">IIS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experiencia">
+  <div class="reveal">
+    <span class="section-label">Experiencia</span>
+    <div class="section-title">Trajetoria Profissional</div>
+    <div class="section-desc">Passagens por empresas onde construi impacto real em producao.</div>
+  </div>
+  <div class="timeline reveal">
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <div>
+          <span class="timeline-role">Analista de Infraestrutura de TI</span>
+          <span class="timeline-company"> — Banco do Nordeste</span>
+        </div>
+        <span class="timeline-period">04/2022 — Atual</span>
+      </div>
+      <ul class="timeline-desc">
+        <li>Administracao de ambientes Linux em producao com hardening, troubleshooting e disponibilidade em ambiente bancario critico</li>
+        <li>Automacao de processos com Shell Script, Bash e Python — reducao de intervencoes manuais e padronizacao de rotinas</li>
+        <li>Gestao de servidores com Ansible: provisionamento, politicas e manutencao automatizada</li>
+        <li>Suporte a servidores Tomcat e Glassfish: deploy, troubleshooting e manutencao</li>
+        <li>Monitoramento com Grafana, Zabbix e Elasticsearch/Kibana</li>
+        <li>Pipelines CI/CD para automacao de deploys</li>
+        <li>Containerizacao com Docker: manutncao e deploy</li>
+        <li>Reducao de 30% no tempo de resolucao de incidentes</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <div>
+          <span class="timeline-role">Analista de Suporte e Implantacao</span>
+          <span class="timeline-company"> — Polisystem</span>
+        </div>
+        <span class="timeline-period">10/2016 — 04/2022</span>
+      </div>
+      <ul class="timeline-desc">
+        <li>Administracao de sistemas Linux e Windows em ambientes de producao para clientes corporativos</li>
+        <li>Suporte e administracao de servidores Java (Tomcat e Glassfish)</li>
+        <li>Automacao de rotinas com Shell Script e Python</li>
+        <li>Suporte tecnico avancado com diagnostico de problemas complexos</li>
+        <li>Melhoria de processos com aumento de 50% na eficiencia dos ciclos</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT -->
+<section id="projeto">
+  <div class="reveal">
+    <span class="section-label">Projeto</span>
+    <div class="section-title">Projeto de Destaque</div>
+    <div class="section-desc">Um dos projetos que mais gerou impacto na minha carreira.</div>
+  </div>
+  <div class="project-card reveal">
+    <span class="project-label">Infraestrutura</span>
+    <h3>Implementacao de Ambiente Seguro e Integrado</h3>
+    <p>Planejamento e implantacao de infraestrutura corporativa segura: configuracao de servidores Linux e Windows, automacao com Ansible e Shell Script, deploy de aplicacoes em Tomcat, containers Docker, pipelines CI/CD, politicas de seguranca e monitoramento com Grafana e Zabbix. Documentacao tecnica completa pos-implementacao.</p>
+    <div class="project-stack">
+      <span class="stack-tag">Linux</span>
+      <span class="stack-tag">Windows Server</span>
+      <span class="stack-tag">Ansible</span>
+      <span class="stack-tag">Shell Script</span>
+      <span class="stack-tag">Docker</span>
+      <span class="stack-tag">CI/CD</span>
+      <span class="stack-tag">Tomcat</span>
+      <span class="stack-tag">Grafana</span>
+      <span class="stack-tag">Zabbix</span>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certificacoes">
+  <div class="reveal">
+    <span class="section-label">Certificacoes</span>
+    <div class="section-title">Certificacoes e Cursos</div>
+    <div class="section-desc">Aperfeicoamento continuo para acompanhar a evolucao da industria.</div>
+  </div>
+  <div class="certs-grid reveal">
+    <div class="cert-card">
+      <span class="cert-icon">&#9889;</span>
+      <div class="cert-info">
+        <div class="cert-name">Claude 101 & Claude Code in Action</div>
+        <div class="cert-issuer">Anthropic — Mar/2026</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <span class="cert-icon">&#128202;</span>
+      <div class="cert-info">
+        <div class="cert-name">Engenharia de Dados</div>
+        <div class="cert-issuer">Data Science Academy — Fev/2026</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <span class="cert-icon">&#128013;</span>
+      <div class="cert-info">
+        <div class="cert-name">Python</div>
+        <div class="cert-issuer">Udemy Brasil — Mar/2026</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <span class="cert-icon">&#128190;</span>
+      <div class="cert-info">
+        <div class="cert-name">Git e GitHub</div>
+        <div class="cert-issuer">Udemy Brasil — Set/2025</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <span class="cert-icon">&#128274;</span>
+      <div class="cert-info">
+        <div class="cert-name">Ciberseguranca</div>
+        <div class="cert-issuer">UP Cursos — Out/2025</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <span class="cert-icon">&#128187;</span>
+      <div class="cert-info">
+        <div class="cert-name">PHP e JavaScript</div>
+        <div class="cert-issuer">UP Cursos / Udemy — 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="formacao">
+  <div class="reveal">
+    <span class="section-label">Formacao</span>
+    <div class="section-title">Formacao Academica</div>
+    <div class="section-desc">Base tecnologica e cientifica para a atuacao profissional.</div>
+  </div>
+  <div class="edu-card reveal">
+    <div class="edu-icon">&#127891;</div>
+    <div>
+      <div class="edu-degree">Engenharia da Computacao</div>
+      <div class="edu-school">Centro Universitario Ruy Barbosa (UNIRUY)</div>
+      <div class="edu-year">Concluido em 2025</div>
+    </div>
+  </div>
+</section>
+
+<!-- LANGUAGES -->
+<section id="idiomas">
+  <div class="reveal">
+    <span class="section-label">Idiomas</span>
+    <div class="section-title">Competencias Linguisticas</div>
+    <div class="section-desc">Comunicacao em multiplas linguas para colaboracao global.</div>
+  </div>
+  <div class="lang-grid reveal">
+    <div class="lang-card">
+      <div class="lang-level">—</div>
+      <div class="lang-name">Portugues</div>
+      <div class="lang-desc">Nativo</div>
+    </div>
+    <div class="lang-card">
+      <div class="lang-level">B1</div>
+      <div class="lang-name">Ingles</div>
+      <div class="lang-desc">Intermediario</div>
+    </div>
+    <div class="lang-card">
+      <div class="lang-level">B1</div>
+      <div class="lang-name">Espanhol</div>
+      <div class="lang-desc">Intermediario</div>
+    </div>
+  </div>
+</section>
+
+<!-- REPOSITORIES -->
+<section id="repositorios">
+  <div class="reveal">
+    <span class="section-label">Open Source</span>
+    <div class="section-title">Repositorios no GitHub</div>
+    <div class="section-desc">Projetos pessoais de aprendizado — de fundamentos de JavaScript a dominando Git/GitHub.</div>
+  </div>
+  <div class="certs-grid reveal">
+    <a href="https://github.com/tcamargo89/listaOrdenada" target="_blank" class="repo-card">
+      <span class="cert-icon">&#128203;</span>
+      <div class="cert-info">
+        <div class="cert-name">listaOrdenada</div>
+        <div class="cert-issuer">CSS</div>
+      </div>
+    </a>
+    <a href="https://github.com/tcamargo89/estudo-Git" target="_blank" class="repo-card">
+      <span class="cert-icon">&#128201;</span>
+      <div class="cert-info">
+        <div class="cert-name">estudo-Git</div>
+        <div class="cert-issuer">HTML</div>
+      </div>
+    </a>
+    <a href="https://github.com/tcamargo89/ProjetoAdvinheoNumero" target="_blank" class="repo-card">
+      <span class="cert-icon">&#127918;</span>
+      <div class="cert-info">
+        <div class="cert-name">ProjetoAdvinheoNumero</div>
+        <div class="cert-issuer">JavaScript</div>
+      </div>
+    </a>
+  </div>
+  <div style="text-align: center; margin-top: 24px;" class="reveal">
+    <a href="https://github.com/tcamargo89" target="_blank" class="btn btn-outline">Ver Todos no GitHub &#8599;</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contato">
+  <div class="footer-inner reveal">
+    <div style="margin-bottom: 24px;">
+      <div class="section-title" style="margin-bottom: 8px;">Vamos Conversar?</div>
+      <p style="color: var(--text-secondary); font-size: 0.95rem;">Tenho interesse em conectar com profissionais da area e explorar novas oportunidades.</p>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:thhhiagocj@gmail.com">thhhiagocj@gmail.com</a>
+      <a href="https://linkedin.com/in/thiago-ramos-camargo" target="_blank">LinkedIn</a>
+      <span style="color: var(--text-muted); font-size: 0.88rem;">Salvador, BA, Brasil</span>
+    </div>
+    <div class="footer-copy" style="margin-top: 24px;">
+      2026 Thiago Ramos Camargo. Todos os direitos reservados.
+    </div>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Close mobile nav on link click
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.querySelector('.nav-links').classList.remove('open');
+  });
+});
+</script>
+
+</body>
+</html>
