@@ -4,14 +4,57 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Thiago Ramos Camargo | Infraestrutura Linux & DevOps</title>
+<meta name="description" content="Engenheiro da Computacao com 8+ anos em administracao de sistemas Linux, automacao e DevOps. Portfolio de Thiago Ramos Camargo.">
+<meta name="theme-color" content="#9966ff">
+<meta property="og:title" content="Thiago Ramos Camargo | Infraestrutura Linux & DevOps">
+<meta property="og:description" content="Engenheiro da Computacao com 8+ anos em administracao de sistemas Linux, automacao e DevOps.">
+<meta property="og:type" content="website">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<style>
+  html { scroll-padding-top: 88px; }
+  /* Back to top */
+  .back-top {
+    position: fixed;
+    bottom: 2.5rem;
+    right: 2.5rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.35s ease;
+    box-shadow: 0 4px 16px rgba(139,92,246,0.3);
+    z-index: 80;
+    pointer-events: none;
+  }
+  .back-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .back-top:hover {
+    background: var(--text);
+    transform: translateY(-2px);
+  }
+</style>
+
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <div class="logo">TRC</div>
+    <a href="#" class="logo">
+      <img src="perfil.png" alt="TRC" />
+    </a>
     <button class="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -375,11 +418,60 @@
   </div>
 </section>
 
-<!-- FOOTER / CONTACT -->
-<footer id="contato">
-  <div class="footer-inner reveal">
-    <h2>Vamos Conversar?</h2>
-    <p>Tenho interesse em conectar com profissionais da area e explorar novas oportunidades.</p>
+<!-- CONTACT FORM -->
+<section id="contato">
+  <div class="container">
+    <div class="contact-wrapper reveal">
+      <div class="contact-info">
+        <div class="section-label">Contato</div>
+        <div class="section-title">Vamos Conversar?</div>
+        <p>Tenho interesse em conectar com profissionais da area e explorar novas oportunidades. Envie uma mensagem ou me encontre nas plataformas abaixo.</p>
+        <div class="contact-links">
+          <a href="mailto:thhhiagocj@gmail.com" class="contact-link-item">
+            <span class="contact-icon" aria-hidden="true">&#9993;</span>
+            <div>
+              <div class="contact-link-label">Email</div>
+              <div class="contact-link-value">thhhiagocj@gmail.com</div>
+            </div>
+          </a>
+          <a href="https://linkedin.com/in/thiago-ramos-camargo" target="_blank" class="contact-link-item">
+            <span class="contact-icon" aria-hidden="true">in</span>
+            <div>
+              <div class="contact-link-label">LinkedIn</div>
+              <div class="contact-link-value">thiago-ramos-camargo</div>
+            </div>
+          </a>
+          <a href="https://github.com/tcamargo89" target="_blank" class="contact-link-item">
+            <span class="contact-icon" aria-hidden="true">&#9737;</span>
+            <div>
+              <div class="contact-link-label">GitHub</div>
+              <div class="contact-link-value">tcamargo89</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <form class="contact-form" action="mailto:thhhiagocj@gmail.com" method="post" enctype="text/plain">
+        <div class="form-group">
+          <label for="name">Nome</label>
+          <input type="text" id="name" name="name" placeholder="Seu nome" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="seu@email.com" required />
+        </div>
+        <div class="form-group">
+          <label for="message">Mensagem</label>
+          <textarea id="message" name="message" rows="5" placeholder="Sua mensagem..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary"><span>Enviar Mensagem</span></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
     <div class="footer-links">
       <a href="mailto:thhhiagocj@gmail.com">Email</a>
       <a href="https://linkedin.com/in/thiago-ramos-camargo" target="_blank">LinkedIn</a>
@@ -390,6 +482,7 @@
   </div>
 </footer>
 
+<button class="back-top" aria-label="Voltar ao topo" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
 <script src="scripts.js"></script>
 </body>
 </html>
