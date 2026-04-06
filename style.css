@@ -292,22 +292,14 @@ nav .nav-links a:hover {
 .btn-primary {
   background: var(--text);
   color: #fff;
+  transition: all var(--speed) ease;
 }
-.btn-primary::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--accent);
-  opacity: 0;
-  transition: opacity var(--speed);
-}
-.btn-primary:hover::before { opacity: 1; }
 .btn-primary:hover {
+  background: var(--accent);
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 30px rgba(139,92,246,0.25);
 }
 .btn-primary:active { transform: translateY(0); }
-.btn-primary span { position: relative; z-index: 1; }
 .btn-outline {
   background: transparent;
   color: var(--text);
