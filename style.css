@@ -301,7 +301,7 @@ section { padding: var(--section-py) 0; }
   font-weight: 600;
 }
 .fact-value {
-  font-size: 1.25rem;
+  font-size: 1.0rem;
   color: var(--text-primary);
   font-weight: 500;
 }
@@ -326,7 +326,7 @@ section { padding: var(--section-py) 0; }
 
 .skill-group h3 {
   font-family: 'DM Sans', sans-serif;
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 0.85rem;
@@ -580,7 +580,7 @@ section { padding: var(--section-py) 0; }
 
 .cert-info { flex: 1; }
 .cert-name {
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -627,7 +627,7 @@ section { padding: var(--section-py) 0; }
 
 .edu-info { flex: 1; }
 .edu-degree {
-  font-size: 1.3rem;
+  font-size: 1.15rem;
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 0.2rem;
@@ -680,7 +680,7 @@ section { padding: var(--section-py) 0; }
   flex: 1;
 }
 .lang-name {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -703,7 +703,7 @@ section { padding: var(--section-py) 0; }
 
 .contact-desc {
   color: var(--text-secondary);
-  font-size: 1.3rem;
+  font-size: 1.0rem;
   line-height: 1.75;
   margin-bottom: 1.5rem;
 }
@@ -758,7 +758,7 @@ section { padding: var(--section-py) 0; }
   font-weight: 600;
 }
 .ci-value {
-  font-size: 1.3rem;
+  font-size: 1.0rem;
   color: var(--text-primary);
   font-weight: 500;
 }
@@ -801,7 +801,7 @@ section { padding: var(--section-py) 0; }
   border: 1px solid var(--border);
   border-radius: 6px;
   font-family: inherit;
-  font-size: 1.3rem;
+  font-size: 1.0rem;
   color: var(--text-primary);
   outline: none;
   transition: border-color 0.25s ease;
