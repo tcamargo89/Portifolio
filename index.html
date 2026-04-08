@@ -14,22 +14,29 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<header role="banner">
+  <nav aria-label="Menu principal">
+    <a href="#" class="nav-logo" aria-label="Inicio">
+      <img src="images/perfil.png" alt="Thiago Camargo" />
+      <span>Thiago Camargo</span>
+    </a>
+    <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false" hidden>
+      <span class="nav-toggle-box">
+        <span class="nav-toggle-inner"></span>
+      </span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#habilidades">Skills</a></li>
+      <li><a href="#experiencia">Experiencia</a></li>
+      <li><a href="#projetos">Projetos</a></li>
+      <li><a href="#certificacoes">Certificacoes</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+  </nav>
+</header>
 
-<!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo" aria-label="Inicio">
-    <img src="images/perfil.png" alt="Thiago Camargo" />
-    <span>Thiago Camargo</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#sobre">Sobre</a></li>
-    <li><a href="#habilidades">Skills</a></li>
-    <li><a href="#experiencia">Experiencia</a></li>
-    <li><a href="#projetos">Projetos</a></li>
-    <li><a href="#certificacoes">Certificacoes</a></li>
-    <li><a href="#contato">Contato</a></li>
-  </ul>
-</nav>
+<main id="main-content" role="main">
 
 <!-- HERO -->
 <section class="hero">
@@ -397,8 +404,8 @@
   <div class="container">
     <div class="contact-grid">
       <div class="contact-side reveal">
-        <div class="section-label">Contato</div>
-        <div class="skills-section-title">Vamos Conversar?</div>
+        <p class="section-label">Contato</p>
+        <h2 class="skills-section-title">Vamos Conversar?</h2>
         <p class="contact-desc">Tenho interesse em conectar com profissionais da area e explorar novas oportunidades. Envie uma mensagem ou me encontre nas plataformas abaixo.</p>
         <ul class="contact-items">
           <li>
@@ -438,21 +445,28 @@
       </div>
       <div class="contact-form-wrap reveal">
         <div class="contact-form-card">
-          <form class="contact-form" action="mailto:thhhiagocj@gmail.com" method="post" enctype="text/plain">
+          <form class="contact-form" id="contact-form" novalidate>
             <div class="section-label">Mensagem</div>
             <div class="fg">
               <label for="name">Nome</label>
-              <input type="text" id="name" name="name" placeholder="Seu nome" required />
+              <input type="text" id="name" name="name" placeholder="Seu nome" required aria-required="true" />
+              <span class="error-message" id="name-error" role="alert"></span>
             </div>
             <div class="fg">
               <label for="email">Email</label>
-              <input type="email" id="email" name="email" placeholder="seu@email.com" required />
+              <input type="email" id="email" name="email" placeholder="seu@email.com" required aria-required="true" />
+              <span class="error-message" id="email-error" role="alert"></span>
             </div>
             <div class="fg">
               <label for="message">Mensagem</label>
-              <textarea id="message" name="message" rows="5" placeholder="Sua mensagem..." required></textarea>
+              <textarea id="message" name="message" rows="5" placeholder="Sua mensagem..." required aria-required="true"></textarea>
+              <span class="error-message" id="message-error" role="alert"></span>
             </div>
-            <button type="submit" class="submit-btn">Enviar Mensagem</button>
+            <button type="submit" class="submit-btn">
+              <span class="btn-text">Enviar Mensagem</span>
+              <span class="btn-loading" hidden>Enviando...</span>
+            </button>
+            <div class="form-status" role="alert" aria-live="polite"></div>
           </form>
         </div>
       </div>
@@ -473,7 +487,12 @@
   </div>
 </footer>
 
-<button class="back-top" aria-label="Voltar ao topo" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
+<button class="back-top" aria-label="Voltar ao topo">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+    <path d="M12 19V5M5 12l7-7 7 7"/>
+  </svg>
+</button>
+
 <script src="scripts.js"></script>
 </body>
 </html>
