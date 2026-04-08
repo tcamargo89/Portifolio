@@ -152,14 +152,26 @@ if (contactForm) {
     formStatus.className = 'form-status';
 
     try {
-      // Simulate form submission (replace with actual backend or EmailJS)
-      await simulateFormSubmission({ name: nameInput.value, email: emailInput.value, message: messageInput.value });
+      // Envia email via EmailJS
+      const formData = {
+        name: nameInput.value.trim(),
+        email: emailInput.value.trim(),
+        message: messageInput.value.trim(),
+        title: 'Contato do Portfolio' // Título fixo para o assunto
+      };
+
+      await sendEmailViaEmailJS(formData);
 
       formStatus.textContent = 'Mensagem enviada com sucesso! Entrarei em contato em breve.';
       formStatus.className = 'form-status success';
       contactForm.reset();
     } catch (error) {
-      formStatus.textContent = 'Erro ao enviar mensagem. Por favor, tente novamente ou envie um email direto.';
+      // Se o EmailJS não estiver configurado, mostra instrução
+      if (error.message === 'EmailJS não configurado') {
+        formStatus.textContent = '⚠️ Configuração pendente: siga as instruções no arquivo scripts.js para ativar o envio de emails.';
+      } else {
+        formStatus.textContent = 'Erro ao enviar mensagem. Por favor, tente novamente ou envie um email direto.';
+      }
       formStatus.className = 'form-status error';
     } finally {
       submitBtn.disabled = false;
@@ -169,15 +181,28 @@ if (contactForm) {
   });
 
   // Real-time validation
-  [nameInput, emailInput, messageInput].forEach(field => {
-    field.addEventListener('input', () => {
-      if (field.classList.contains('error')) {
-        field.classList.remove('error');
-        const errorEl = document.getElementById(`${field.id}-error`);
-        if (errorEl) errorEl.textContent = '';
+  const setupRealTimeValidation = () => {
+    const fields = [
+      { id: 'name', errorId: 'name-error' },
+      { id: 'email', errorId: 'email-error' },
+      { id: 'message', errorId: 'message-error' }
+    ];
+
+    fields.forEach(field => {
+      const input = document.getElementById(field.id);
+      if (input) {
+        input.addEventListener('input', () => {
+          const errorEl = document.getElementById(field.errorId);
+          if (errorEl) {
+            errorEl.textContent = '';
+          }
+          input.classList.remove('error');
+        });
       }
     });
-  });
+  };
+
+  setupRealTimeValidation();
 }
 
 function showError(elementId, message) {
@@ -197,13 +222,91 @@ function isValidEmail(email) {
   return emailRegex.test(email);
 }
 
-function simulateFormSubmission(data) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      // Simulate network delay
-      console.log('Form submitted:', data);
-      resolve({ success: true });
-    }, 1500);
+// ============================================
+// CONFIGURAÇÃO DO EMAILJS
+// ============================================
+// 1. Crie uma conta gratuita em https://www.emailjs.com/
+// 2. Adicione um serviço de email (Gmail, Outlook, etc.)
+// 3. Crie um template de email com estas variáveis:
+//    - {{name}} - Nome do remetente
+//    - {{email}} - Email do remetente
+//    - {{message}} - Mensagem enviada
+// 4. Copie o Service ID, Template ID e seu User ID
+// 5. Substitua as constantes abaixo com seus valores
+// ============================================
+
+const EMAILJS_SERVICE_ID = 'service_x8l99cb';
+const EMAILJS_TEMPLATE_ID = 'template_66jwlnj';
+const EMAILJS_USER_ID = 'OYfCf_MonEEF9WaHN';
+
+// Aguarda a biblioteca EmailJS carregar antes de inicializar
+function waitForEmailJS() {
+  return new Promise((resolve, reject) => {
+    if (typeof emailjs !== 'undefined') {
+      emailjs.init(EMAILJS_USER_ID);
+      console.log('✅ EmailJS inicializado');
+      resolve();
+    } else {
+      // Espera a biblioteca carregar
+      const checkInterval = setInterval(() => {
+        if (typeof emailjs !== 'undefined') {
+          clearInterval(checkInterval);
+          emailjs.init(EMAILJS_USER_ID);
+          console.log('✅ EmailJS inicializado (tardia)');
+          resolve();
+        }
+      }, 100);
+
+      // Timeout após 5 segundos
+      setTimeout(() => {
+        clearInterval(checkInterval);
+        reject(new Error('EmailJS não carregou em 5 segundos'));
+      }, 5000);
+    }
+  });
+}
+
+// Inicializa quando a página carrega
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', waitForEmailJS);
+} else {
+  waitForEmailJS();
+}
+
+function sendEmailViaEmailJS(data) {
+  return new Promise((resolve, reject) => {
+    console.log('📧 Enviando email via EmailJS...');
+    console.log('Service ID:', EMAILJS_SERVICE_ID);
+    console.log('Template ID:', EMAILJS_TEMPLATE_ID);
+    console.log('User ID:', EMAILJS_USER_ID);
+    console.log('Dados:', data);
+
+    // Verifica se o EmailJS está configurado
+    if (EMAILJS_SERVICE_ID === 'SEU_SERVICE_ID' ||
+        EMAILJS_TEMPLATE_ID === 'SEU_TEMPLATE_ID') {
+      console.error('⚠️ EmailJS não configurado! IDs padrão detectados.');
+      reject(new Error('EmailJS não configurado'));
+      return;
+    }
+
+    // Verifica se a biblioteca está disponível
+    if (typeof emailjs === 'undefined') {
+      console.error('❌ Biblioteca EmailJS não carregada!');
+      reject(new Error('EmailJS library not loaded'));
+      return;
+    }
+
+    console.log('✅ Biblioteca EmailJS encontrada, enviando...');
+
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data)
+      .then((result) => {
+        console.log('✅ EmailJS Success:', result);
+        resolve(result);
+      }, (error) => {
+        console.error('❌ EmailJS Error:', error);
+        console.error('Detalhes do erro:', JSON.stringify(error));
+        reject(error);
+      });
   });
 }
 
