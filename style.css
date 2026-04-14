@@ -59,8 +59,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .skills-categories.reveal .skill-group:nth-child(1) { transition-delay: 0s; }
 .skills-categories.reveal .skill-group:nth-child(2) { transition-delay: 0.05s; }
 .skills-categories.reveal .skill-group:nth-child(3) { transition-delay: 0.1s; }
-.skills-categories.reveal .skill-group:nth-child(4) { transition-delay: 0.15s; }
-.skills-categories.reveal .skill-group:nth-child(5) { transition-delay: 0.2s; }
 
 .cert-list.reveal .cert-card:nth-child(1) { transition-delay: 0s; }
 .cert-list.reveal .cert-card:nth-child(2) { transition-delay: 0.05s; }
@@ -68,6 +66,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .cert-list.reveal .cert-card:nth-child(4) { transition-delay: 0.15s; }
 .cert-list.reveal .cert-card:nth-child(5) { transition-delay: 0.2s; }
 .cert-list.reveal .cert-card:nth-child(6) { transition-delay: 0.25s; }
+.cert-list.reveal .cert-card:nth-child(7) { transition-delay: 0.3s; }
+.cert-list.reveal .cert-card:nth-child(8) { transition-delay: 0.35s; }
+.cert-list.reveal .cert-card:nth-child(9) { transition-delay: 0.4s; }
 
 /* ====== NAV ====== */
 nav {
@@ -574,16 +575,6 @@ section { padding: var(--section-py) 0; }
   color: #F85149;
   border-color: rgba(248,81,73,0.15);
 }
-.skill-group:nth-child(4) .skill-tag {
-  background: rgba(88,166,255,0.1);
-  color: #58A6FF;
-  border-color: rgba(88,166,255,0.15);
-}
-.skill-group:nth-child(5) .skill-tag {
-  background: rgba(163,113,247,0.1);
-  color: #A371F7;
-  border-color: rgba(163,113,247,0.15);
-}
 
 /* ====== TIMELINE / EXPERIENCE ====== */
 .timeline {
@@ -739,6 +730,7 @@ section { padding: var(--section-py) 0; }
 .proj-item:nth-child(1) .ptag { background: rgba(57,211,83,0.1); color: #39D353; border-color: rgba(57,211,83,0.15); }
 .proj-item:nth-child(2) .ptag { background: rgba(219,109,40,0.1); color: #DB6D28; border-color: rgba(219,109,40,0.15); }
 .proj-item:nth-child(3) .ptag { background: rgba(248,81,73,0.1); color: #F85149; border-color: rgba(248,81,73,0.15); }
+.proj-item:nth-child(4) .ptag { background: rgba(163,113,247,0.1); color: #A371F7; border-color: rgba(163,113,247,0.15); }
 
 /* ====== CERTIFICATIONS ====== */
 .cert-list {

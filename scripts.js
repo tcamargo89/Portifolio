@@ -146,8 +146,6 @@ if (contactForm) {
 
     // Show loading state
     submitBtn.disabled = true;
-    submitBtn.querySelector('.btn-text').hidden = true;
-    submitBtn.querySelector('.btn-loading').hidden = false;
     formStatus.textContent = '';
     formStatus.className = 'form-status';
 
@@ -175,8 +173,6 @@ if (contactForm) {
       formStatus.className = 'form-status error';
     } finally {
       submitBtn.disabled = false;
-      submitBtn.querySelector('.btn-text').hidden = false;
-      submitBtn.querySelector('.btn-loading').hidden = true;
     }
   });
 
