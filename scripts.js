@@ -10,10 +10,25 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// Nav shrink on scroll + back to top visibility
+// Nav shrink on scroll + back to top visibility + active section
 const backTop = document.querySelector('.back-top');
 const nav = document.querySelector('nav');
 let ticking = false;
+
+const sectionIds = ['hero', 'sobre', 'habilidades', 'experiencia', 'projetos', 'certificacoes', 'contato'];
+const navAnchors = document.querySelectorAll('.nav-links li a');
+
+function getActiveSection() {
+  let current = '';
+  const scrollPos = window.scrollY + 100;
+  sectionIds.forEach(id => {
+    const section = document.getElementById(id);
+    if (section && section.offsetTop <= scrollPos) {
+      current = id;
+    }
+  });
+  return current;
+}
 
 window.addEventListener('scroll', () => {
   if (!ticking) {
@@ -21,6 +36,10 @@ window.addEventListener('scroll', () => {
       const scrollY = window.scrollY;
       nav.classList.toggle('scrolled', scrollY > 48);
       if (backTop) backTop.classList.toggle('visible', scrollY > 400);
+      const active = getActiveSection();
+      navAnchors.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + active);
+      });
       ticking = false;
     });
     ticking = true;
