@@ -801,6 +801,8 @@ section + section::before {
 .proj-item:nth-child(2):hover { border-color: rgba(219,109,40,0.35); box-shadow: 0 4px 24px rgba(219,109,40,0.07); }
 .proj-item:nth-child(3):hover { border-color: rgba(248,81,73,0.35); box-shadow: 0 4px 24px rgba(248,81,73,0.07); }
 .proj-item:nth-child(4):hover { border-color: rgba(163,113,247,0.35); box-shadow: 0 4px 24px rgba(163,113,247,0.07); }
+.proj-item:nth-child(5):hover { border-color: rgba(88,166,255,0.35); box-shadow: 0 4px 24px rgba(88,166,255,0.07); }
+.proj-item:nth-child(6):hover { border-color: rgba(0,224,224,0.35); box-shadow: 0 4px 24px rgba(0,224,224,0.07); }
 
 .proj-item .proj-icon {
   width: 32px;
@@ -858,6 +860,12 @@ section + section::before {
 .proj-item:nth-child(2) .ptag { background: rgba(219,109,40,0.1); color: var(--accent-orange); border-color: rgba(219,109,40,0.15); }
 .proj-item:nth-child(3) .ptag { background: rgba(248,81,73,0.1); color: var(--accent-red); border-color: rgba(248,81,73,0.15); }
 .proj-item:nth-child(4) .ptag { background: rgba(163,113,247,0.1); color: var(--accent-purple); border-color: rgba(163,113,247,0.15); }
+.proj-item:nth-child(1) .ptag { background: rgba(57,211,83,0.1); color: var(--accent-green); border-color: rgba(57,211,83,0.15); }
+.proj-item:nth-child(2) .ptag { background: rgba(219,109,40,0.1); color: var(--accent-orange); border-color: rgba(219,109,40,0.15); }
+.proj-item:nth-child(3) .ptag { background: rgba(248,81,73,0.1); color: var(--accent-red); border-color: rgba(248,81,73,0.15); }
+.proj-item:nth-child(4) .ptag { background: rgba(163,113,247,0.1); color: var(--accent-purple); border-color: rgba(163,113,247,0.15); }
+.proj-item:nth-child(5) .ptag { background: rgba(88,166,255,0.1); color: var(--accent-blue); border-color: rgba(88,166,255,0.15); }
+.proj-item:nth-child(6) .ptag { background: rgba(0,224,224,0.1); color: var(--accent-cyan); border-color: rgba(0,224,224,0.15); }
 
 /* ====== CERTIFICATIONS ====== */
 .cert-list {
